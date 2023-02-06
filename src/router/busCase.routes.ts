@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { PetCreate } from "../serviceBus/PetCreate";
+import { authMiddleware } from '../middleware/authmiddleware'
 
 const petBus = new PetCreate()
 

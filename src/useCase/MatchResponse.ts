@@ -11,8 +11,17 @@ class MatchResponse {
 
 
         try {
-            if (currentPetId == Number(petMatchId)) {
-                throw new Error('You cannot match your own pet')
+
+            const myPets = await prisma.pet.findMany({
+                where: {
+                    ownerId: Number(req.userId)
+                }
+            })
+
+            for (var i = 0; i < myPets.length; i++) {
+                if (myPets[i].id == petMatchId) {
+                    throw Error('You CANNOT match your own pet')
+                }
             }
 
 
@@ -70,6 +79,10 @@ class MatchResponse {
                     } else if (nMatch.ownerInterest1 == true && nMatch.ownerInterest2 == false) {
                         return res.status(200).json({
                             message: "You missed a match"
+                        })
+                    } else {
+                        return res.status(200).json({
+                            message: "Done"
                         })
                     }
 

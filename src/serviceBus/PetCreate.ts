@@ -5,6 +5,7 @@ class PetCreate {
     async execute(req: Request, res: Response) {
         try {
             const petBody = req.body
+            console.log(petBody)
 
             const pet = await prisma.pet.create({
                 data: petBody
