@@ -67,12 +67,21 @@ class GetAnimalToMatch {
 
         }
 
+        const myPet = await prisma.pet.findUnique({
+            where: {
+                id: Number(petid)
+            }
+        })
 
         const petToBeSent = await prisma.pet.findFirst({
             where: {
-                NOT: list
+                NOT: list,
+                AND: {
+                    NOT: { gender: { equals: myPet?.gender } }
+                }
             }
         })
+
 
         if (petToBeSent == null) {
             return res.status(404).json(petToBeSent)
