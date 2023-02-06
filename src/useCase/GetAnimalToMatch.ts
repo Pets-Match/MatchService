@@ -38,16 +38,19 @@ class GetAnimalToMatch {
             }
         }
 
+
         for (var i = 0; i < alreadyVoted2.length; i++) {
             if (alreadyVoted2[i].ownerInterest2 != null) {
                 list.push({
                     id: {
-                        equals: alreadyVoted2[i].petId2
+                        equals: alreadyVoted2[i].petId1
                     }
                 })
 
             }
         }
+
+
 
         const myPets = await prisma.pet.findMany({
             where: {
@@ -63,6 +66,7 @@ class GetAnimalToMatch {
             })
 
         }
+
 
         const petToBeSent = await prisma.pet.findFirst({
             where: {
