@@ -7,7 +7,11 @@ async function authMiddleware(
 ) {
 
     try {
-        const user = await axios.get('http://localhost:8080/auth/middleware', { headers: req.headers })
+        const response = await axios.get('http://localhost:3030/auth/middleware', {
+            headers: {
+                Authorization: req.headers.authorization
+            }
+        })
 
         const pet = await prisma.pet.findFirst({
             where: {
@@ -19,19 +23,19 @@ async function authMiddleware(
                     },
                     {
                         ownerId: {
-                            equals: user.data.id
+                            equals: response.data.id
                         }
                     }
                 ]
             }
         })
 
+
         if (!pet) {
             return res.status(404).json({ message: "THAT'S NOT YOUR PET!" })
-
         }
 
-        req.userId = user.data.id;
+        req.userId = response.data.id;
         return next()
 
     } catch (error: any) {

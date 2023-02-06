@@ -11,7 +11,7 @@ class MatchResponse {
 
 
         try {
-            if (currentPetId == Number(petid)) {
+            if (currentPetId == Number(petMatchId)) {
                 throw new Error('You cannot match your own pet')
             }
 

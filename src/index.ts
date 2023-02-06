@@ -14,7 +14,7 @@ for (let i = 3000; i < 3003; i++) {
 
     app[i].listen(i, () => {
         console.log(
-            i
+            'Server Initialized on PORT', i
         )
     })
 }
