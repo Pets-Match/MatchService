@@ -25,8 +25,10 @@ model Pet {
 model match {
   petId1         Int
   petId2         Int
-  ownerInterest1 Boolean
-  ownerInterest2 Boolean
+  ownerInterest1 Boolean?
+  ownerInterest2 Boolean?
+  ownerId1       Int?
+  ownerId2       Int?
 
   @@id([petId1, petId2])
 }

@@ -5,8 +5,11 @@ import { prisma } from "../service/prisma";
 class GetAnimalToMatch {
     async execute(req: Request, res: Response) {
         const { ids } = req.body
+        const { petid } = req.headers
 
-        const query = ids.map((element: number) => {
+
+
+        var query = ids.map((element: number) => {
             return {
                 id: {
                     equals: element
@@ -15,9 +18,15 @@ class GetAnimalToMatch {
         })
 
 
+        query.push({
+            id: {
+                equals: Number(petid)
+            }
+        })
+
         const petToBeSent = await prisma.pet.findFirst({
             where: {
-                NOT: [query]
+                NOT: query
             }
         })
 
